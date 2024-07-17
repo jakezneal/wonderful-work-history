@@ -47,15 +47,15 @@ const meta: Meta<${value.component.name.pascal}Props> = {
 
         components: { ${value.component.name.pascal} },
 
-        setup(props) {
+        setup() {
             return {
-                props,
+                args,
             };
         },
 
         template: \`
             <${value.component.name.kebab}
-                v-bind="props"
+                v-bind="args"
             />
         \`,
     }),
