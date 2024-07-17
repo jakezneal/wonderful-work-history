@@ -1,0 +1,71 @@
+export default (value) => `/**
+ * Stories for ${value.component.name.pascal}.
+ *
+ * @see https://storybook.js.org/docs/vue/essentials/controls
+ */
+
+import generateArgTypes from '@netsells/storybook-vue-generate-arg-types';
+import ${value.component.name.pascal}, { type ${value.component.name.pascal}Props } from './${value.component.name.pascal}.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+
+const meta: Meta<${value.component.name.pascal}Props> = {
+    /**
+     * Set the component on the default export for props to be
+     * automatically converted to args/controls.
+     */
+    component: ${value.component.name.pascal},
+    /**
+     * Provide custom control types for your props.
+     *
+     * @see https://storybook.js.org/docs/vue/essentials/controls#annotation
+     */
+    argTypes: generateArgTypes(${value.component.name.pascal}),
+    /**
+     * Set any default props data on your component.
+     *
+     * @see https://storybook.js.org/docs/8.0/vue/writing-stories/args
+     */
+    args: {},
+    /**
+     * Set any default parameters on your stories.
+     *
+     * @see https://storybook.js.org/docs/8.0/vue/writing-stories/parameters
+     */
+    parameters: {
+        container: true,
+        layout: 'centered',
+    },
+    /**
+     * Return your rendered component.
+     *
+     * @see https://storybook.js.org/docs/8.0/vue/api/csf
+     */
+    render: (args) => ({
+        name: '${value.component.name.kebab}-story',
+
+        props: args,
+
+        components: { ${value.component.name.pascal} },
+
+        setup(props) {
+            return {
+                props,
+            };
+        },
+
+        template: \`
+            <${value.component.name.kebab}
+                v-bind="props"
+            />
+        \`,
+    }),
+};
+
+type Story = StoryObj<typeof meta>;
+
+export const ${value.component.name.camel}: Story = {
+    name: '${value.component.name.pascal}',
+};
+    
+export default meta;
+`;
