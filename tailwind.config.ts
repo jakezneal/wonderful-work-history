@@ -6,6 +6,8 @@ export default {
         extend: {
             colors: {
                 aqua: '#00C7B1',
+                grey: '#B0B0B0',
+                red: '#E2516B',
             },
         },
     },
