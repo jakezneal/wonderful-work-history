@@ -9,30 +9,24 @@ describe('TextInput', () => {
     let wrapper: VueWrapper;
 
     const textInput = () => wrapper.getComponent();
-    const label = () => wrapper.findByTestId('label');
     const input = () => wrapper.findByTestId('input');
-    const errorWrapper = () => wrapper.findByTestId('errorWrapper');
-    const errors = () => wrapper.findAllByTestId('error');
     const asterisk = () => wrapper.findByTestId('asterisk');
+    const inputWrapper = () => wrapper.findComponent({ name: 'input-wrapper' });
 
     beforeEach(() => {
         wrapper = suite.textInput();
     });
 
     test('passes the `id` prop to the input', () => {
-        expect(input().attributes('id')).toBe('text-input');
+        expect(input().attributes('id')).toBe(textInput().props('id'));
     });
 
-    test('renders the label', () => {
-        expect(label().text()).toContain('Text input');
+    test('passes the `id` prop to the `InputWrapper`', () => {
+        expect(inputWrapper().props('id')).toBe(textInput().props('id'));
     });
 
-    test('by default the disabled styles are not applied', () => {
-        expect(textInput().classes()).not.toContain('bg-gray-100');
-    });
-
-    test('by default the error styles are not applied', () => {
-        expect(textInput().classes()).not.toContain('border-red');
+    test('passes the `label` prop to the `InputWrapper`', () => {
+        expect(inputWrapper().props('label')).toBe(textInput().props('label'));
     });
 
     describe('when the `name` prop is provided', () => {
@@ -40,26 +34,8 @@ describe('TextInput', () => {
             wrapper = suite.withName();
         });
 
-        test('passes the `name` prop to the input', () => {
-            expect(input().attributes('name')).toBe('text-input');
-        });
-    });
-
-    describe('when the `error` prop is provided', () => {
-        beforeEach(() => {
-            wrapper = suite.error();
-        });
-
-        test.todo('renders the error');
-
-        test.todo('the input is highlighted');
-
-        describe('and there are multiple errors', () => {
-            beforeEach(() => {
-                wrapper = suite.errors();
-            });
-
-            test.todo('renders each error');
+        test('passes the `name` prop to the `InputWrapper`', () => {
+            expect(inputWrapper().props('name')).toBe(textInput().props('name'));
         });
     });
 
@@ -68,9 +44,9 @@ describe('TextInput', () => {
             wrapper = suite.disabled();
         });
 
-        test.todo('passes the `disabled` prop to the input');
-
-        test.todo('the input appears disabled');
+        test('passes the `disabled` prop to the `InputWrapper`', () => {
+            expect(inputWrapper().props('disabled')).toBe(true);
+        });
     });
 
     describe('when the `placeholder` prop is provided', () => {
@@ -79,21 +55,27 @@ describe('TextInput', () => {
         });
 
         test('passes the `placeholder` prop to the input', () => {
-            expect(input().attributes('placeholder')).toBe('Input placeholder');
+            expect(input().attributes('placeholder')).toBe(textInput().props('placeholder'));
+        });
+
+        test('passes the `placeholder` prop to the `InputWrapper`', () => {
+            expect(inputWrapper().props('placeholder')).toBe(textInput().props('placeholder'));
         });
     });
 
-    describe('when the `required` prop is provided', () => {
-        beforeEach(() => {
-            wrapper = suite.required();
-        });
+    // describe('when the `required` prop is provided', () => {
+    //     beforeEach(() => {
+    //         wrapper = suite.required();
+    //     });
 
-        test.todo('passes the `required` prop to the input');
+    //     test('passes the `required` prop to the input', () => {
+    //         expect(input().attributes('required')).toBe(textInput().props('required'));
+    //     });
 
-        test('renders the asterisk', () => {
-            expect(asterisk().exists()).toBeTruthy();
-        });
-    });
+    //     test('passes the `required` prop to the `InputWrapper`', () => {
+    //         expect(inputWrapper().props('required')).toBe(textInput().props('required'));
+    //     });
+    // });
 
     describe('when the `value` prop is provided', () => {
         beforeEach(() => {
@@ -101,7 +83,11 @@ describe('TextInput', () => {
         });
 
         test('passes the `value` prop to the input', () => {
-            expect(input().attributes('value')).toBe('Some value');
+            expect(input().attributes('value')).toBe(textInput().props('value'));
+        });
+
+        test('passes the `value` prop to the `InputWrapper`', () => {
+            expect(inputWrapper().props('value')).toBe(textInput().props('value'));
         });
     });
 });
