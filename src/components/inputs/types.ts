@@ -1,10 +1,13 @@
-export interface BaseInputProps {
+export interface WrapperProps {
     id: string;
-    name?: string;
     label: string;
     errors?: Array<string>;
+    required?: boolean;
+}
+
+export interface BaseInputProps extends WrapperProps {
+    name?: string;
     disabled?: boolean;
     placeholder?: string;
-    required?: boolean;
     value?: string;
 }
