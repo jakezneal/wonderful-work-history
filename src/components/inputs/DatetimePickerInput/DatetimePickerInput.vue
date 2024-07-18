@@ -16,7 +16,7 @@
             data-testid="button"
         >
             <div data-testid="buttonText">
-                <p>{{ value !== undefined ? value : placeholder }}</p>
+                <p>{{ date !== undefined ? date : placeholder }}</p>
             </div>
             <div class="justify-self-end">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@
                 </svg>
             </div>
         </button>
-        <DatePicker v-if="show" :is-required="required" @update:modelValue="(e) => calendarUpdated(e)" />
+        <DatePicker v-if="show" :is-required="required" v-model="date" @update:modelValue="(e) => calendarUpdated(e)" />
     </InputWrapper>
 </template>
 
@@ -48,15 +48,20 @@ const props = withDefaults(defineProps<DatetimePickerInputProps>(), {
     showCalendar: false,
 });
 
-const emit = defineEmits(['update:value']);
+const emit = defineEmits(['update:modelValue']);
 
 const isInvalid = props.errors && props.errors?.length > 0;
 
 const show = ref(props.showCalendar);
 
+const date = ref('');
+
 const toggleCalendar = (state: boolean) => {
     show.value = state;
 };
 
-const calendarUpdated = (date: Date) => emit('update:value', date);
+const calendarUpdated = (date: Date) => {
+    emit('update:modelValue', date);
+    toggleCalendar(false);
+};
 </script>

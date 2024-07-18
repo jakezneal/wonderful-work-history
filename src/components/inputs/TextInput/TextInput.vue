@@ -14,6 +14,7 @@
                 required,
                 value,
             }"
+            @input="updateValue"
             :aria-invalid="isInvalid"
             data-testid="input"
         />
@@ -24,9 +25,18 @@
 import InputWrapper from '../InputWrapper/InputWrapper.vue';
 import type { BaseInputProps } from '../types';
 
-export interface TextInputProps extends BaseInputProps {}
+export interface TextInputProps extends BaseInputProps {
+    modelValue: string;
+}
 
 const props = defineProps<TextInputProps>();
 
+const emit = defineEmits(['update:modelValue']);
+
 const isInvalid = props.errors && props.errors?.length > 0;
+
+const updateValue = (event: Event) => {
+    // @ts-ignore
+    emit('update:modelValue', event.target?.value);
+};
 </script>
