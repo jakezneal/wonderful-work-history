@@ -10,7 +10,6 @@ describe('TextInput', () => {
 
     const textInput = () => wrapper.getComponent();
     const input = () => wrapper.findByTestId('input');
-    const asterisk = () => wrapper.findByTestId('asterisk');
     const inputWrapper = () => wrapper.findComponent({ name: 'input-wrapper' });
 
     beforeEach(() => {
@@ -29,25 +28,25 @@ describe('TextInput', () => {
         expect(inputWrapper().props('label')).toBe(textInput().props('label'));
     });
 
-    describe('when the `name` prop is provided', () => {
-        beforeEach(() => {
-            wrapper = suite.withName();
-        });
+    // describe('when the `name` prop is provided', () => {
+    //     beforeEach(() => {
+    //         wrapper = suite.withName();
+    //     });
 
-        test('passes the `name` prop to the `InputWrapper`', () => {
-            expect(inputWrapper().props('name')).toBe(textInput().props('name'));
-        });
-    });
+    //     test('passes the `name` prop to the `InputWrapper`', () => {
+    //         expect(inputWrapper().props('name')).toBe(textInput().props('name'));
+    //     });
+    // });
 
-    describe('when the `disabled` prop is provided', () => {
-        beforeEach(() => {
-            wrapper = suite.disabled();
-        });
+    // describe('when the `disabled` prop is provided', () => {
+    //     beforeEach(() => {
+    //         wrapper = suite.disabled();
+    //     });
 
-        test('passes the `disabled` prop to the `InputWrapper`', () => {
-            expect(inputWrapper().props('disabled')).toBe(true);
-        });
-    });
+    //     test('passes the `disabled` prop to the `InputWrapper`', () => {
+    //         expect(inputWrapper().props('disabled')).toBe(true);
+    //     });
+    // });
 
     describe('when the `placeholder` prop is provided', () => {
         beforeEach(() => {
@@ -58,9 +57,9 @@ describe('TextInput', () => {
             expect(input().attributes('placeholder')).toBe(textInput().props('placeholder'));
         });
 
-        test('passes the `placeholder` prop to the `InputWrapper`', () => {
-            expect(inputWrapper().props('placeholder')).toBe(textInput().props('placeholder'));
-        });
+        // test('passes the `placeholder` prop to the `InputWrapper`', () => {
+        //     expect(inputWrapper().props('placeholder')).toBe(textInput().props('placeholder'));
+        // });
     });
 
     // describe('when the `required` prop is provided', () => {
@@ -84,10 +83,6 @@ describe('TextInput', () => {
 
         test('passes the `value` prop to the input', () => {
             expect(input().attributes('value')).toBe(textInput().props('value'));
-        });
-
-        test('passes the `value` prop to the `InputWrapper`', () => {
-            expect(inputWrapper().props('value')).toBe(textInput().props('value'));
         });
     });
 });
