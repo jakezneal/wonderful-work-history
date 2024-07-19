@@ -3,13 +3,13 @@
         <div class="flex flex-row items-center justify-between gap-3">
             <button
                 @click.prevent="toggleAccordion"
-                class="flex flex-row items-center gap-4"
-                :aria-expanded="expanded"
+                class="flex w-full flex-row items-center gap-4"
+                :aria-expanded="isExpanded"
                 :aria-controls="`panel-${id}`"
                 :id="`accordion-${id}`"
                 data-testid="button"
             >
-                <span v-if="expanded">
+                <span v-if="isExpanded">
                     <svg
                         width="14"
                         height="8"
@@ -44,7 +44,11 @@
                     <p class="text-grey text-left" data-testid="dates">{{ workDates }}</p>
                 </div>
             </button>
-            <button @click.prevent="console.log('remove')" class="text-red flex flex-row items-center gap-1">
+            <button
+                v-if="showRemove"
+                @click.prevent="$emit('deleteItem', company)"
+                class="text-red flex flex-row items-center gap-1"
+            >
                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M8.82667 6L8.596 12M5.404 12L5.17333 6M11.8187 3.86C12.0467 3.89467 12.2733 3.93133 12.5 3.97067M11.8187 3.86L11.1067 13.1153C11.0776 13.4922 10.9074 13.8441 10.63 14.1008C10.3527 14.3576 9.9886 14.5001 9.61067 14.5H4.38933C4.0114 14.5001 3.64735 14.3576 3.36999 14.1008C3.09262 13.8441 2.92239 13.4922 2.89333 13.1153L2.18133 3.86M11.8187 3.86C11.0492 3.74368 10.2758 3.6554 9.5 3.59533M2.18133 3.86C1.95333 3.894 1.72667 3.93067 1.5 3.97M2.18133 3.86C2.95076 3.74368 3.72416 3.6554 4.5 3.59533M9.5 3.59533V2.98467C9.5 2.198 8.89333 1.542 8.10667 1.51733C7.36908 1.49376 6.63092 1.49376 5.89333 1.51733C5.10667 1.542 4.5 2.19867 4.5 2.98467V3.59533M9.5 3.59533C7.83581 3.46672 6.16419 3.46672 4.5 3.59533"
@@ -59,11 +63,11 @@
             </button>
         </div>
         <div
-            v-if="expanded"
+            v-if="isExpanded"
             :id="`panel-${id}`"
             role="region"
             :aria-labelledby="`accordion-${id}`"
-            class="pt-8"
+            class="py-8"
             data-testid="panel"
         >
             <slot />
@@ -79,28 +83,37 @@ export type AccordionItemProps = {
     company?: string;
     start?: Date | string;
     end?: Date | string;
+    expanded?: boolean;
+    showRemove?: boolean;
 };
 
 const props = withDefaults(defineProps<AccordionItemProps>(), {
     title: 'Job Title',
     company: 'Company Name',
-    start: new Intl.DateTimeFormat('en-GB').format(new Date()),
+    start: 'Thu 18 Jul 2024',
+    expanded: false,
+    showRemove: false,
 });
 
-const expanded = ref(false);
+const emits = defineEmits(['deleteItem']);
+
+const isExpanded = ref(props.expanded);
 
 const toggleAccordion = () => {
-    expanded.value = !expanded.value;
+    isExpanded.value = !isExpanded.value;
 };
 
 const id = computed(() => props.company?.toLowerCase().replace(' ', '-'));
 
 const accordionTitle = computed(() => `${props.title}, ${props.company}`);
+
+const formatDate = (date: Date | string) => new Intl.DateTimeFormat('en-GB').format(new Date(date));
+
 const workDates = computed(() => {
     if (!props.end) {
-        return `Since ${props.start}`;
+        return `Since ${formatDate(props.start)}`;
     }
 
-    return `${props.start} - ${props.end}`;
+    return `${formatDate(props.start)} - ${formatDate(props.end)}`;
 });
 </script>

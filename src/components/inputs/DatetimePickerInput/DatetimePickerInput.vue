@@ -29,7 +29,13 @@
                 </svg>
             </div>
         </button>
-        <DatePicker v-if="show" :is-required="required" v-model="date" @update:modelValue="(e) => calendarUpdated(e)" />
+        <DatePicker
+            v-if="show"
+            :is-required="required"
+            v-model="date"
+            mode="date"
+            @update:modelValue="(e) => calendarUpdated(e)"
+        />
     </InputWrapper>
 </template>
 
@@ -42,6 +48,7 @@ import InputWrapper from '../InputWrapper/InputWrapper.vue';
 
 export interface DatetimePickerInputProps extends BaseInputProps {
     showCalendar?: boolean;
+    modelValue?: string;
 }
 
 const props = withDefaults(defineProps<DatetimePickerInputProps>(), {
@@ -54,7 +61,7 @@ const isInvalid = props.errors && props.errors?.length > 0;
 
 const show = ref(props.showCalendar);
 
-const date = ref('');
+const date = ref(props.value);
 
 const toggleCalendar = (state: boolean) => {
     show.value = state;
