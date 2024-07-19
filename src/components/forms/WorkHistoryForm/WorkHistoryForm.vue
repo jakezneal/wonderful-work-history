@@ -7,6 +7,7 @@
             @input="$emit('update:jobTitle', $event.target.value)"
             required
             data-testid="jobTitle"
+            data-e2e="job-title"
         />
         <TextInput
             id="company-name"
@@ -15,21 +16,24 @@
             @input="$emit('update:companyName', $event.target.value)"
             required
             data-testid="companyName"
+            data-e2e="company-name"
         />
         <div class="grid grid-cols-2 gap-6">
             <DatetimePickerInput
                 id="start-date"
                 label="Start Date"
                 v-model:value="startDate as string"
-                required
                 data-testid="startDate"
+                data-e2e="start-date"
                 @update:model-value="(e) => $emit('update:startDate', e)"
+                required
             />
             <DatetimePickerInput
                 id="end-date"
                 label="End Date"
                 v-model:value="endDate as string"
                 data-testid="endDate"
+                data-e2e="end-date"
                 @update:model-value="(e) => $emit('update:endDate', e)"
             />
         </div>

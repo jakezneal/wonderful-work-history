@@ -1,6 +1,7 @@
 <template>
     <InputWrapper v-bind="{ id, label, errors, required }" class="text-input">
         <input
+            type="text"
             :class="[
                 'w-full rounded-lg border border-solid p-3 text-base',
                 isInvalid ? 'border-red' : 'border-grey',

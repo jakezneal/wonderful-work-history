@@ -48,6 +48,7 @@
                 v-if="showRemove"
                 @click.prevent="$emit('deleteItem', company)"
                 class="text-red flex flex-row items-center gap-1"
+                data-e2e="removeButton"
             >
                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

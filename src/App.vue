@@ -12,6 +12,7 @@
                     :end="item.end"
                     show-remove
                     @deleteItem="(value) => store.deleteItem(value)"
+                    data-e2e="workItem"
                 >
                     <WorkHistoryForm :title="item.title" :company="item.company" :start="item.start" :end="item.end" />
                 </AccordionItem>
@@ -30,7 +31,13 @@
                     <AppButton text="Add work history" icon="+" />
                 </div>
                 <div>
-                    <AppButton text="Save" variant="primary" @click="saveItem" :disabled="isSaveDisabled" />
+                    <AppButton
+                        text="Save"
+                        variant="primary"
+                        @click="saveItem"
+                        :disabled="isSaveDisabled"
+                        data-e2e="submitButton"
+                    />
                 </div>
             </div>
         </div>

@@ -35,6 +35,7 @@
             v-model="date"
             mode="date"
             @update:modelValue="(e) => calendarUpdated(e)"
+            data-e2e="date-picker"
         />
     </InputWrapper>
 </template>
