@@ -53,9 +53,15 @@ pnpm test:e2e tests/e2e/example.ts
 # Runs the tests in debug mode
 pnpm test:e2e --debug
 ```
-    
+
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
 pnpm lint
+```
+
+### Run [Storybook](https://storybook.js.org/)
+
+```sh
+pnpm storybook
 ```
